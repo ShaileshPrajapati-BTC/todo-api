@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
+  gem 'rack-cors', :require => 'rack/cors'
 
+gem  'byebug'
 
 gem 'rails', '4.2.6'
 
@@ -11,6 +13,7 @@ gem 'spring', :group => :development
 gem 'sqlite3'
 
 gem 'rabl'
+gem 'sprockets', '2.12.3'
 
 
 # To use ActiveModel has_secure_password

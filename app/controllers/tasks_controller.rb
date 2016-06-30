@@ -1,20 +1,18 @@
 class TasksController < ApplicationController
   include ActionController::MimeResponds
   skip_before_filter :verify_authenticity_token
-  before_filter :cors_preflight_check
+   before_action :set_task, only: [:show, :update, :destroy]
+before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
-
-  before_action :set_task, only: [:show, :update, :destroy]
-
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = Task.all
-
-    respond_to do |format|
-      format.json { render json: @tasks }
-      format.xml { render xml: @tasks }
-    end
+    # respond_to do |format|
+    #   format.json { render json: @tasks }
+    #   format.xml { render xml: @tasks }
+    # end
+    render json: @tasks.as_json
   end
 
   # GET /tasks/1
@@ -54,7 +52,7 @@ class TasksController < ApplicationController
 
     head :no_content
   end
-  def cors_set_access_control_headers
+    def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
@@ -71,6 +69,7 @@ class TasksController < ApplicationController
       render :text => '', :content_type => 'text/plain'
     end
   end
+  
   private
 
   def set_task
